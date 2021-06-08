@@ -1,0 +1,19 @@
+@page "/timer"
+@inherits PomodoroBlazor.Pages.TimerBase
+
+
+<div class="row">
+   <div class="col-sm-12" align="center">
+        <h1 style="font-size: 5em;">@TimeLeft</h1>
+        <div class="col-sm-2" align="center">
+            <input type="text" class="form-control" @bind="@TaskDescription" placeholder="Task description..."/>
+            <div class="py-3">
+                <button class="btn btn-primary" @onclick="Start" disabled="@StartButtonDisabled">Start</button>
+                <button class="btn btn-success" @onclick="Reset">Reset</button>
+                <button class="btn btn-danger" @onclick="Stop" disabled="@StopButtonDisabled">Stop</button>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<TaskTable PomodoroTasks="@pomodoroTasks" OnStarted="Start"/>

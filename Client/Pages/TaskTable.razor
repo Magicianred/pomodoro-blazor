@@ -1,0 +1,47 @@
+@using PomodoroBlazor.Domain
+
+@if (PomodoroTasks == null){
+    <p><em>Loading...</em></p>
+} else 
+{
+    <h2>Sessions</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Start time</th>
+                    <th>Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pomodoroTask in PomodoroTasks)
+                {
+                    <tr>
+                        <td>@pomodoroTask.Description</td>
+                        <td>@pomodoroTask.StartTime</td>
+                        <td>@pomodoroTask.Completed</td>
+                    </tr>
+                }
+            </tbody>
+        </table> 
+    </div>
+
+}
+
+@code {
+    [Parameter]
+    public List<PomodoroTask> PomodoroTasks {get; set;}
+
+    [Parameter]
+    public EventCallback<PomodoroTask> OnStarted {get;set;}
+    
+    public PomodoroTask NewPomodoroTask {get; set;} = new PomodoroTask();
+    
+    async Task HandleStarted()
+    {
+        await OnStarted.InvokeAsync(NewPomodoroTask);
+    }
+    
+    
+}
